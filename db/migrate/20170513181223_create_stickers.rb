@@ -4,6 +4,9 @@ class CreateStickers < ActiveRecord::Migration[5.0]
       t.string :name
       t.text :body
       t.integer :count
+      t.datetime :fist_view
+      t.integer :type
+      t.integer :status
 
       t.timestamps
     end
