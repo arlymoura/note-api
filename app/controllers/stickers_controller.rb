@@ -1,5 +1,6 @@
 class StickersController < ApplicationController
   before_action :set_sticker, only: [:show, :update, :destroy]
+  before_action :update_total_view_count, only: :show
 
   # GET /stickers
   def index
@@ -42,6 +43,15 @@ class StickersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_sticker
       @sticker = Sticker.find(params[:id])
+    end
+
+    def update_total_view_count
+      @sticker = Sticker.find(params[:id])
+      if (@sticker.view_count == 0)
+        @sticker.fist_view = DateTime.now()
+      end
+      @sticker.view_count += 1
+      @sticker.save!
     end
 
     # Only allow a trusted parameter "white list" through.
